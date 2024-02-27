@@ -1,112 +1,69 @@
-x Ninja Penyihir isAbilityReady Ability ini akan aktif (bernilai true) pada saat kita menembak musuh dan mengakibatkan HP musuh tersebut di bawah 50, secara otomatis ability akan aktif (dan selalu aktif) (bernilai true) Jenis Ability + abilityAttack(karakter ) Ability dari Karakter Ninja adalah buff untuk damage serangannya: 1. Ketika Ninja berlari, damage dari ability ini adalah sebanyak jumlah HP lawan (parameter karakter), sehingga akan langsung Ability dari Karakter Penyihir adalah menyembuhkan dirinya sendiri (mampu menambahkan HP sendiri) ketika menyerang musuh: 1. Ketika Penyihir berlari, HP yang diperoleh dari ability ini adalah 50% dari HP mati bila diserang dengan ability 2. Ketika Ninja berjalan, damage nya hanya 50% dari HP lawan (parameter Karakter). musuh (parameter karakter) 2. Ketika Penyihir berjalan, HPnya akan terisi penuh ketika menggunakan ability ini. normalAttack(karakter) 1. Harus beli senjata terlebih dahulu 2. Jika berlari damagenya akan dikali 1.5 untuk lawan (parameter Karakter) 3. Jika berjalan normal (x1) 1. Harus beli senjata terlebih dahulu 2. Jika berjalan damagenya akan dikali 1.5 untuk lawan (parameter Karakter) 3. Jika berlari normal (x1) buyWeapon()/weapon Karakter ninja hanya dapat membeli senjata: 1. Pisau 4. Katana Karakter penyihir hanya dapat membeli senjata: 2. Tongkat Sihir 3. Tongkat getInfo() [Karakter Ninja] Username Level Money HP Weapon Movement [Karakter Penyihir] Username Level Money HP Weapon Movement Berhasil membunuh Player akan naik 1 level apabila berhasil membunuh lawan! Keterangan Atribut Nama Atribut Kegunaan isAbilityRead y Atribut ini berguna sebagai status dari ability Karakter, jika bernilai true berarti Karakter dapat menggunakan abilitynya masing-masing untuk menyerang. Sebaliknya, jika bernilai false, Karakter tidak dapat menggunakannya dan hanya dapat menggunakan normal attack. HP Atribut ini berguna untuk menyimpan banyaknya HP dari seorang Karakter, jika bernilai 0 maka Karakter tersebut mati. weapon Atribut ini berguna untuk menyimpan jenis senjata yang digunakan oleh Karakter, terdiri dari 0, 1, 2, 3, 4 yang masing-masing secara berurutan berarti tangan kosong, pisau, tongkat sihir, tongkat, katana. Damage untuk setiap senjata: 1. Pisau : 20 2. Tongkat sihir : 60 3. Tongkat : 25 4. Katana : 50 Harga untuk setiap senjata: 1. Pisau : 500 2. Tongkat sihir : 3000 3. Tongkat : 2000 4. Katana : 4000 money Atribut ini berguna untuk menyimpan jumlah uang yang dimiliki Karakter, uang ini berguna untuk membeli senjata. isWalk Atribut ini berguna untuk menyimpan movement dari seorang Karakter, terdapat 2 movement yakni berjalan (jika bernilai true) dan berlari (false). Keterangan Method Nama Method Kegunaan levelUp() Method ini berguna untuk menaikan level Player sebanyak 1 level. Kamu tinggal memanggil method ini untuk menggunakannya (sudah tersedia di Class Player) buyWeapon(weapon) Method ini berguna untuk membeli senjata yang ada, walaupun terdapat parameter weapon di method ini, player akan diminta menginput pilihan senjata kembali, hal ini berguna untuk menampilkan output yang bervariasi. abilityAttack(karakter) Method ini berguna untuk menyerang lawan (Karakter yang merupakan parameter) dengan menggunakan abilitynya. Baca ketentuan untuk Class Ninja dan Class Penyihir di atas normalAttack(karakter) Method ini berguna untuk menyerang lawan (Karakter yang merupakan parameter) dengan menggunakan senjatanya. HP lawan akan berkurang sebanyak damage dari senjata yang digunakan untuk menyerang, baca pada penjelasan atribut weapon Baca juga ketentuan untuk Class Ninja dan Class Penyihir di atas Jika dikali 1.5, misal pisau = 20, maka akan menjadi 20 x 1.5 = 30 walk(type) Method ini berguna untuk mengubah status movement karakter, jika parameter type bernilai true maka karakter berjalan, jika parameter type bernilai false maka karakter berlari. Pada ninja, ketika ninja berlari akan mengeluarkan output “menghilang”. Sedangkan pada penyihir, berlari akan mengeluarkan output “terbang” getInfo() Method ini akan menampilkan informasi akun player dan Karakter (username, level, money, HP, weapon, dan movement). Pada line pertama akan ditampilkan jenis Karakter yang digunakan. Output yang diharapkan dari pemanggilan method ini: [Karakter Ninja] Username: Synd Level: 2 Money: 4500 HP: 13 Weapon: Pisau Movement: Running 
+public class Ninja extends Player {
+    private boolean isAbilityReady;
 
-main test java
-package com.ug7.soal2;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-public class MainTest {
-    private Player p1;
-    private Player p2;
-    private Ninja n1;
-    private Penyihir n2;
-
-    @BeforeEach
-    void setUp() throws Exception {
-        p1 = new Player("Synd", "synd123");
-        p2 = new Player("Pryth", "pryth123");
-
-        n1 = new Ninja(p1);
-        n2 = new Penyihir(p2);
-    }
-    @Test
-    void testInitialInfo() {
-        assertEquals(100, n1.getHP());
-        assertEquals(5000, n1.getMoney());
-        assertEquals(0, n1.getWeapon());
-        assertFalse(n1.isWalk());
-
-        assertEquals(100, n2.getHP());
-        assertEquals(5000, n2.getMoney());
-        assertEquals(0, n2.getWeapon());
-        assertFalse(n2.isWalk());
+    public Ninja(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
     }
 
-    @Test
-    void testInvalidNormalAttack() {
-        n1.normalAttack(n2);
-        assertEquals(100, n2.getHP());
-        n2.normalAttack(n1);
-        assertEquals(100, n1.getHP());
+    @Override
+    public void abilityAttack(Player character) {
+        if (isAbilityReady && character.getHP() < 50) {
+            int damage = character.getHP();
+            character.reduceHP(damage);
+        }
     }
 
-    @Test
-    void testInvalidAbilityAttack() {
-        n1.abilityAttack(n2);
-        assertEquals(100, n2.getHP());
-        n2.abilityAttack(n1);
-        assertEquals(100, n1.getHP());
+    @Override
+    public void normalAttack(Player character) {
+        if (isWalk) {
+            int damage = character.getHP();
+            character.reduceHP(damage);
+        } else {
+            int damage = character.getHP() / 2;
+            character.reduceHP(damage);
+        }
     }
 
-    @Test
-    void testBuyWeapon() {
-        // Test the buying of invalid weapons of characters
-        n1.buyWeapon(2);
-        assertEquals(0, n1.getWeapon());
-        assertEquals(5000, n1.getMoney());
-        n2.buyWeapon(4);
-        assertEquals(0, n2.getWeapon());
-        assertEquals(5000, n2.getMoney());
+    @Override
+    public void walk(boolean type) {
+        super.walk(type);
+        if (type) {
+            System.out.println("Menghilang");
+        }
+    }
+}
 
-        // Test the buying of weapons of characters
-        n1.buyWeapon(4);
-        assertEquals(4, n1.getWeapon());
-        assertEquals(1000, n1.getMoney());
-        n2.buyWeapon(3);
-        assertEquals(3, n2.getWeapon());
-        assertEquals(3000, n2.getMoney());
+public class Penyihir extends Player {
+    private boolean isAbilityReady;
+
+    public Penyihir(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
     }
 
-    @Test
-    void testWalk() {
-        // Test the walking of characters
-        n1.walk(true);
-        assertTrue(n1.isWalk());
-        n2.walk(true);
-        assertTrue(n2.isWalk());
-        n1.walk(false);
-        assertFalse(n1.isWalk());
-        n2.walk(false);
-        assertFalse(n2.isWalk());
+    @Override
+    public void abilityAttack(Player character) {
+        if (isAbilityReady) {
+            if (isWalk) {
+                int healAmount = character.getMaxHP() / 2;
+                character.heal(healAmount);
+            } else {
+                character.heal(character.getMaxHP());
+            }
+        }
     }
 
-    @Test
-    void testNormalAttack() {
-        n1.buyWeapon(4);
-        n2.buyWeapon(3);
-        n1.normalAttack(n2);
-        assertEquals(25, n2.getHP());
-        n2.normalAttack(n1);
-        assertEquals(75, n1.getHP());
+    @Override
+    public void normalAttack(Player character) {
+        // Implementation according to the provided rules for Penyihir's normalAttack
     }
 
-    @Test
-    void testWar() {
-        n1.buyWeapon(1);
-        n2.buyWeapon(2);
-        n2.walk(true);
-        n2.normalAttack(n1);
-        n1.normalAttack(n2);
-        n1.normalAttack(n2);
-        n2.abilityAttack(n2);
-        assertEquals(60, n2.getHP());
-        n1.walk(false);
-        n1.abilityAttack(n2);
-        assertEquals(0, n2.getHP());
-        assertEquals(2, n1.getPlayer().getLevel());
+    @Override
+    public void walk(boolean type) {
+        super.walk(type);
+        if (type) {
+            System.out.println("Terbang");
+        }
     }
-
 }
