@@ -1,0 +1,102 @@
+// Class Player
+public class Player {
+    protected String username;
+    protected int level;
+    protected int money;
+    protected int HP;
+    protected int weapon;
+    protected boolean isWalk;
+
+    public Player(String username, int level, int money, int HP, int weapon, boolean isWalk) {
+        this.username = username;
+        this.level = level;
+        this.money = money;
+        this.HP = HP;
+        this.weapon = weapon;
+        this.isWalk = isWalk;
+    }
+
+    public void levelUp() {
+        level++;
+    }
+
+    public void buyWeapon(int weapon) {
+        // Implementation according to the provided rules
+    }
+
+    public void abilityAttack(Player character) {
+        // Implementation according to the provided rules
+    }
+
+    public void normalAttack(Player character) {
+        // Implementation according to the provided rules
+    }
+
+    public void walk(boolean type) {
+        // Implementation according to the provided rules
+    }
+
+    public void getInfo() {
+        // Implementation according to the provided rules
+    }
+}
+
+// Class Ninja
+public class Ninja extends Player {
+    private boolean isAbilityReady;
+
+    public Ninja(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
+    }
+
+    @Override
+    public void abilityAttack(Player character) {
+        // Implementation according to the provided rules for Ninja's abilityAttack
+    }
+
+    @Override
+    public void normalAttack(Player character) {
+        // Implementation according to the provided rules for Ninja's normalAttack
+    }
+
+    @Override
+    public void walk(boolean type) {
+        // Implementation according to the provided rules for Ninja's walk
+    }
+
+    @Override
+    public void getInfo() {
+        // Implementation according to the provided rules for Ninja's getInfo
+    }
+}
+
+// Class Penyihir
+public class Penyihir extends Player {
+    private boolean isAbilityReady;
+
+    public Penyihir(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
+    }
+
+    @Override
+    public void abilityAttack(Player character) {
+        // Implementation according to the provided rules for Penyihir's abilityAttack
+    }
+
+    @Override
+    public void normalAttack(Player character) {
+        // Implementation according to the provided rules for Penyihir's normalAttack
+    }
+
+    @Override
+    public void walk(boolean type) {
+        // Implementation according to the provided rules for Penyihir's walk
+    }
+
+    @Override
+    public void getInfo() {
+        // Implementation according to the provided rules for Penyihir's getInfo
+    }
+}
