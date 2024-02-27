@@ -1,0 +1,166 @@
+UNGUIDED 07
+INHERITANCE DAN OVERRIDING
+kamu diminta untuk membuat game pertempuran sederhana dengan menerapkan Class
+Diagram seperti berikut:
+Petunjuk Pengerjaan Soal
+Class Player merupakan dependency, dimana Class Player merupakan tipe dari salah satu
+atribut yang ada di Class Karakter. Selain itu, Class Ninja dan Class Penyihir merupakan anak
+dari Class Karakter. Berikut ini adalah ketentuan untuk Class Ninja dan Class Penyihir:
+x Ninja Penyihir
+isAbilityReady Ability ini akan aktif (bernilai true) pada saat kita menembak
+musuh dan mengakibatkan HP musuh tersebut di bawah 50,
+secara otomatis ability akan aktif (dan selalu aktif) (bernilai
+true)
+Jenis Ability +
+abilityAttack(karakter
+)
+Ability dari Karakter Ninja
+adalah buff untuk damage
+serangannya:
+1. Ketika Ninja berlari,
+damage dari ability ini
+adalah sebanyak jumlah
+HP lawan (parameter
+karakter), sehingga akan
+langsung
+Ability dari Karakter Penyihir
+adalah menyembuhkan
+dirinya sendiri (mampu
+menambahkan HP sendiri)
+ketika menyerang musuh:
+1. Ketika Penyihir berlari, HP
+yang diperoleh dari
+ability ini adalah 50%
+dari HP
+mati bila diserang
+dengan ability
+2. Ketika Ninja berjalan,
+damage nya hanya 50%
+dari HP lawan (parameter
+Karakter).
+musuh (parameter
+karakter)
+2. Ketika Penyihir berjalan,
+HPnya akan terisi penuh
+ketika menggunakan
+ability ini.
+normalAttack(karakter) 1. Harus beli senjata terlebih
+dahulu
+2. Jika berlari damagenya
+akan dikali 1.5 untuk lawan
+(parameter Karakter)
+3. Jika berjalan normal (x1)
+1. Harus beli senjata terlebih
+dahulu
+2. Jika berjalan damagenya
+akan dikali 1.5 untuk
+lawan (parameter
+Karakter)
+3. Jika berlari normal (x1)
+buyWeapon()/weapon Karakter ninja hanya dapat
+membeli senjata:
+1. Pisau
+4. Katana
+Karakter penyihir hanya
+dapat membeli senjata:
+2. Tongkat Sihir
+3. Tongkat
+getInfo() [Karakter Ninja]
+Username
+Level
+Money
+HP
+Weapon
+Movement
+[Karakter Penyihir]
+Username
+Level
+Money
+HP
+Weapon
+Movement
+Berhasil membunuh Player akan naik 1 level apabila berhasil membunuh lawan!
+Keterangan Atribut
+Nama
+Atribut
+Kegunaan
+isAbilityRead
+y
+Atribut ini berguna sebagai status dari ability Karakter, jika bernilai true
+berarti Karakter dapat menggunakan abilitynya masing-masing untuk
+menyerang. Sebaliknya, jika bernilai false, Karakter tidak dapat
+menggunakannya dan hanya dapat menggunakan normal attack.
+HP Atribut ini berguna untuk menyimpan banyaknya HP dari seorang
+Karakter, jika bernilai 0 maka Karakter tersebut mati.
+weapon Atribut ini berguna untuk menyimpan jenis senjata yang digunakan
+oleh Karakter, terdiri dari 0, 1, 2, 3, 4 yang masing-masing secara
+berurutan berarti tangan kosong, pisau, tongkat sihir, tongkat, katana.
+Damage untuk setiap senjata:
+1. Pisau : 20
+2. Tongkat sihir : 60
+3. Tongkat : 25
+4. Katana : 50
+Harga untuk setiap senjata:
+1. Pisau : 500
+2. Tongkat sihir : 3000
+3. Tongkat : 2000
+4. Katana : 4000
+money Atribut ini berguna untuk menyimpan jumlah uang yang dimiliki
+Karakter, uang ini berguna untuk membeli senjata.
+isWalk Atribut ini berguna untuk menyimpan movement dari seorang
+Karakter, terdapat 2 movement yakni berjalan (jika bernilai true) dan
+berlari (false).
+Keterangan Method
+Nama Method Kegunaan
+levelUp() Method ini berguna untuk menaikan level Player sebanyak 1
+level. Kamu tinggal memanggil method ini untuk
+menggunakannya (sudah tersedia di Class Player)
+buyWeapon(weapon) Method ini berguna untuk membeli senjata yang ada,
+walaupun terdapat parameter weapon di method ini, player
+akan diminta menginput pilihan senjata kembali, hal ini
+berguna untuk menampilkan output yang bervariasi.
+abilityAttack(karakter) Method ini berguna untuk menyerang lawan (Karakter yang
+merupakan parameter) dengan menggunakan abilitynya. Baca
+ketentuan untuk Class Ninja dan Class Penyihir di atas
+normalAttack(karakter) Method ini berguna untuk menyerang lawan (Karakter yang
+merupakan parameter) dengan menggunakan senjatanya. HP
+lawan akan berkurang sebanyak damage dari senjata yang
+digunakan untuk menyerang, baca pada penjelasan atribut
+weapon
+Baca juga ketentuan untuk Class Ninja dan Class Penyihir di
+atas Jika dikali 1.5, misal pisau = 20, maka akan menjadi 20 x
+1.5 = 30
+walk(type) Method ini berguna untuk mengubah status movement
+karakter, jika parameter type bernilai true maka karakter
+berjalan, jika parameter type bernilai false maka karakter
+berlari. Pada ninja, ketika ninja berlari akan mengeluarkan
+output “menghilang”. Sedangkan pada penyihir, berlari akan
+mengeluarkan output “terbang”
+getInfo() Method ini akan menampilkan informasi akun player dan
+Karakter (username, level, money, HP, weapon, dan
+movement).
+Pada line pertama akan ditampilkan jenis Karakter yang
+digunakan.
+Output yang diharapkan dari pemanggilan method ini:
+[Karakter Ninja]
+Username: Synd
+Level: 2
+Money: 4500
+HP: 13
+Weapon: Pisau
+Movement: Running
+Konsep game pertempuran sederhana ini dibuat semirip mungkin dengan game
+pertempuran yang ada pada dunia nyata.
+Class Player sudah disediakan dalam arsip soal, jadi yang harus kamu lakukan adalah
+membuat 3 Class yang lain (silakan cek Class Diagram) yang menerapkan konsep inheritance
+dan overriding!
+Dalam arsip soal juga sudah disediakan Class Main untuk dapat menguji program yang
+kamu buat.
+Poin Penilaian :
+- Program berhasil compile = 20 Point
+- testInitialInfo, testInvalidNormalAttack, testInvalidAbilityAttack, testBuyWeapon,
+testWalk, testNormalAttack berhasil = @10 Point
+- testWar berhasil = 20 Point
+Contoh Output dari file Main.java :
+
+
