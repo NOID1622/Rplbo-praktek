@@ -1,0 +1,141 @@
+public class Ninja extends Karakter {
+    private boolean isAbilityReady;
+
+    public Ninja(String username, String password) {
+        super(username, password);
+    }
+
+    public Ninja(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
+    }
+
+    @Override
+    public void abilityAttack(Karakter character) {
+        if (isAbilityReady && character.getHP() < 50) {
+            int damage = character.getHP();
+            character.reduceHP(damage);
+        }
+    }
+
+    @Override
+    public void normalAttack(Karakter character) {
+        if (isWalk()) {
+            int damage = character.getHP();
+            character.reduceHP(damage);
+        } else {
+            int damage = character.getHP() / 2;
+            character.reduceHP(damage);
+        }
+    }
+
+    @Override
+    public void walk(boolean type) {
+        super.walk(type);
+        if (type) {
+            System.out.println("Menghilang");
+        }
+    }
+}
+
+public class Penyihir extends Karakter {
+    private boolean isAbilityReady;
+
+    public Penyihir(String username, String password) {
+        super(username, password);
+    }
+
+    public Penyihir(String username, int level, int money, int HP, int weapon, boolean isWalk, boolean isAbilityReady) {
+        super(username, level, money, HP, weapon, isWalk);
+        this.isAbilityReady = isAbilityReady;
+    }
+
+    @Override
+    public void abilityAttack(Karakter character) {
+        if (isAbilityReady) {
+            if (isWalk()) {
+                int healAmount = character.getMaxHP() / 2;
+                character.heal(healAmount);
+            } else {
+                character.heal(character.getMaxHP());
+            }
+        }
+    }
+
+    @Override
+    public void normalAttack(Karakter character) {
+        // Implementation according to the provided rules for Penyihir's normalAttack
+    }
+
+    @Override
+    public void walk(boolean type) {
+        super.walk(type);
+        if (type) {
+            System.out.println("Terbang");
+        }
+    }
+}
+
+public class Player extends Karakter {
+    public Player(String username, String password) {
+        super(username, password);
+    }
+
+    // Metode tambahan sesuai kebutuhan
+
+    @Override
+    public void abilityAttack(Karakter character) {
+        // Implementasi abilityAttack untuk Player jika diperlukan
+    }
+
+    @Override
+    public void normalAttack(Karakter character) {
+        // Implementasi normalAttack untuk Player jika diperlukan
+    }
+
+    @Override
+    public void walk(boolean type) {
+        super.walk(type);
+        // Implementasi walk untuk Player jika diperlukan
+    }
+}
+
+public class Karakter {
+    private String username;
+    private String password;
+    private int level;
+    private int HP;
+    private int money;
+    private int weapon;
+    private boolean isWalking;
+
+    public Karakter(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.level = 1;
+        this.HP = 100;
+        this.money = 5000;
+        this.weapon = 0;
+        this.isWalking = false;
+    }
+
+    // Metode dan atribut lainnya sesuai kebutuhan
+
+    public void abilityAttack(Karakter character) {
+        // Implementasi umum abilityAttack
+    }
+
+    public void normalAttack(Karakter character) {
+        // Implementasi umum normalAttack
+    }
+
+    public void walk(boolean isWalking) {
+        this.isWalking = isWalking;
+    }
+
+    // Metode lainnya sesuai kebutuhan
+
+    public boolean isWalk() {
+        return isWalking;
+    }
+}
