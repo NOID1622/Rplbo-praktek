@@ -1,0 +1,149 @@
+// Class User
+class User {
+    private String nama;
+    private String email;
+    private boolean isEmailConfirmed = false;
+    private int uang;
+
+    public User(String nama, String email, int uang) {
+        this.nama = nama;
+        this.email = email;
+        this.uang = uang;
+    }
+
+    public void setEmailConfirmed(boolean isConfirmed) {
+        isEmailConfirmed = isConfirmed;
+    }
+
+    public boolean isEmailConfirmed() {
+        return isEmailConfirmed;
+    }
+
+    public int getUang() {
+        return uang;
+    }
+
+    public void setUang(int uang) {
+        this.uang = uang;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+}
+
+// Class eWallet
+class eWallet {
+    protected int feeTopup;
+    protected int feeTransfer;
+    protected int feeWithdraw;
+    protected User user;
+
+    public eWallet(User user) {
+        this.user = user;
+    }
+
+    public void emailConfirmation() {
+        user.setEmailConfirmed(true);
+    }
+
+    public void topup(int jumlah) {
+        user.setUang(user.getUang() - (jumlah + feeTopup));
+    }
+
+    public void transfer(eWallet tujuan, int jumlah) {
+        if (user.isEmailConfirmed()) {
+            delay();
+            user.setUang(user.getUang() - (jumlah + feeTransfer));
+            tujuan.user.setUang(tujuan.user.getUang() + jumlah);
+        } else {
+            System.out.println("Transfer gagal: Email belum terkonfirmasi");
+        }
+    }
+
+    public void withdraw(int jumlah) {
+        user.setUang(user.getUang() + jumlah - feeWithdraw);
+    }
+
+    public void getInfo() {
+        System.out.println("Nama: " + user.getNama());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("Uang cash: Rp" + formatRupiah(user.getUang()));
+        System.out.println("Saldo e-wallet: Rp" + formatRupiah(0));
+    }
+
+    public static String formatRupiah(int nominal) {
+        String hasil = "";
+        String nominalString = String.valueOf(nominal);
+        int length = nominalString.length();
+        int counter = 0;
+        for (int i = length - 1; i >= 0; i--) {
+            hasil = nominalString.charAt(i) + hasil;
+            counter++;
+            if (counter % 3 == 0 && counter != length) {
+                hasil = "." + hasil;
+            }
+        }
+        hasil = "Rp" + hasil + ",00";
+        return hasil;
+    }
+
+    public static void delay() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// Class ShopeePay
+class ShopeePay extends eWallet {
+    public ShopeePay(User user) {
+        super(user);
+        feeTopup = 500;
+        feeTransfer = 0;
+        feeWithdraw = 1000;
+    }
+
+    @Override
+    public void getInfo() {
+        System.out.println("[ShopeePay e-Wallet]");
+        super.getInfo();
+    }
+}
+
+// Class GoPay
+class GoPay extends eWallet {
+    public GoPay(User user) {
+        super(user);
+        feeTopup = 1000;
+        feeTransfer = 500;
+        feeWithdraw = 2500;
+    }
+
+    @Override
+    public void getInfo() {
+        System.out.println("[GoPay e-Wallet]");
+        super.getInfo();
+    }
+
+    @Override
+    public void transfer(eWallet tujuan, int jumlah) {
+        delay();
+        if (user.isEmailConfirmed()) {
+            if (tujuan instanceof GoPay) {
+                user.setUang(user.getUang() - (jumlah + feeTransfer));
+                tujuan.user.setUang(tujuan.user.getUang() + jumlah);
+            } else {
+                System.out.println("Transfer gagal: Hanya bisa transfer ke GoPay");
+            }
+        } else {
+            System.out.println("Transfer gagal: Email belum terkonfirmasi");
+        }
+    }
+}
