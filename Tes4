@@ -1,0 +1,109 @@
+public class Character {
+    private String username;
+    private String password;
+    private int level;
+    private int HP;
+    private int money;
+    private int weapon;
+    private boolean isWalking;
+
+    public Character(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.level = 1;
+        this.HP = 100;
+        this.money = 5000;
+        this.weapon = 0;
+        this.isWalking = false;
+    }
+
+    public void levelUp() {
+        level++;
+    }
+
+    public void buyWeapon(int weaponId) {
+        weapon = weaponId;
+    }
+
+    public void abilityAttack(Character opponent) {
+        // Implement specific ability for each character subclass
+        throw new UnsupportedOperationException("Not implemented in base class");
+    }
+
+    public void normalAttack(Character opponent) {
+        // Implement basic attack based on weapon and character stats
+        throw new UnsupportedOperationException("Not implemented in base class");
+    }
+
+    public void walk(boolean isWalking) {
+        this.isWalking = isWalking;
+    }
+
+    public String getInfo() {
+        return String.format("Username: %s\nLevel: %d\nHP: %d\nMoney: %d\nWeapon: %d\nWalking: %s",
+                username, level, HP, money, weapon, isWalking ? "Yes" : "No");
+    }
+}
+
+public class Ninja extends Character {
+
+    public Ninja(String username, String password) {
+        super(username, password);
+    }
+
+    @Override
+    public void abilityAttack(Character opponent) {
+        // Implement Ninja's specific ability attack logic
+        System.out.println(username + " used a special Ninja attack!");
+        // Perform attack logic, potentially affecting opponent HP, etc.
+    }
+
+    @Override
+    public void normalAttack(Character opponent) {
+        // Implement Ninja's basic attack logic based on weapon and stats
+        System.out.println(username + " attacked with their weapon!");
+        // Perform attack logic, potentially affecting opponent HP, etc.
+    }
+}
+
+public class Mage extends Character {
+
+    public Mage(String username, String password) {
+        super(username, password);
+    }
+
+    @Override
+    public void abilityAttack(Character opponent) {
+        // Implement Mage's specific ability attack logic
+        System.out.println(username + " cast a powerful spell!");
+        // Perform attack logic, potentially affecting opponent HP, etc.
+    }
+
+    @Override
+    public void normalAttack(Character opponent) {
+        // Implement Mage's basic attack logic based on weapon and stats
+        System.out.println(username + " launched a basic attack!");
+        // Perform attack logic, potentially affecting opponent HP, etc.
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        Character player = new Character("Bard", "123456");
+
+        player.levelUp();
+        player.buyWeapon(1);
+        player.abilityAttack(null); // Replace with actual opponent object
+        player.normalAttack(null); // Replace with actual opponent object
+        player.walk(true);
+
+        System.out.println(player.getInfo());
+
+        Ninja ninja = new Ninja("Sasuke", "uchiha");
+        ninja.abilityAttack(null); // Replace with actual opponent object
+
+        Mage mage = new Mage("Merlin", "excalibur");
+        mage.abilityAttack(null); // Replace with actual opponent object
+    }
+}
