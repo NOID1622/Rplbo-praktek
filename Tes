@@ -1,3 +1,40 @@
+public class Karakter {
+    // Atribut dan konstruktor lainnya...
+
+    public void buyWeapon(int weaponId) {
+        // Implementasi pembelian senjata sesuai dengan aturan yang telah ditentukan
+        switch (weaponId) {
+            case 1:
+                // Pisau
+                weapon = 1;
+                money -= 500;
+                break;
+            case 2:
+                // Tongkat Sihir
+                weapon = 2;
+                money -= 3000;
+                break;
+            case 3:
+                // Tongkat
+                weapon = 3;
+                money -= 2000;
+                break;
+            case 4:
+                // Katana
+                weapon = 4;
+                money -= 4000;
+                break;
+            default:
+                // Senjata tidak dikenali
+                System.out.println("Senjata tidak dikenali.");
+        }
+    }
+
+    // Metode dan atribut lainnya sesuai kebutuhan
+}
+
+
+
 // Class Player
 public class Player {
     protected String username;
