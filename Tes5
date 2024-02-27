@@ -27,6 +27,20 @@ public class Ninja extends Karakter {
             int damage = character.getHP() / 2;
             character.reduceHP(damage);
         }
+
+
+
+
+    public int getHP(){
+        return HP;
+    }
+    public void reduceHP (int damage){
+        HP -= damage;
+        if (HP <= 0){
+            HP =0;
+            System.out.println(username+"telah Mati.");
+        }
+    }
     }
 
     @Override
